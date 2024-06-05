@@ -1,0 +1,6 @@
+---
+# tasks file for gvisor_install
+- include_tasks: set_arch.yml
+- include_tasks: get_binaries.yml
+- include_tasks: setup_binaries.yml
+- include_tasks: verify_runsc_install.yml

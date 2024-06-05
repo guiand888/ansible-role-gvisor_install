@@ -1,0 +1,12 @@
+- name: Move downloaded files
+  become: true
+  ansible.builtin.command:
+    cmd: "mv /tmp/{{ item }} /usr/local/bin"
+  loop:
+    - runsc
+    - containerd-shim-runsc-v1
+    
+- name: Install runsc 
+  become: true
+  ansible.builtin.command: 
+    cmd: "/usr/local/bin/runsc install"

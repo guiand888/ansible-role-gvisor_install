@@ -1,0 +1,3 @@
+- name: Set the architecture
+  ansible.builtin.set_fact:
+    arch: "{{ ansible_architecture }}"
