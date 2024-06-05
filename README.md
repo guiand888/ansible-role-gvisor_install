@@ -1,4 +1,4 @@
-Role Name
+gvisor_install
 =========
 
 This Ansible role automates the process of installing the latest version of `runsc`, the runtime for gVisor a.k.a. Google's sandboxing tool for containers, on a target machine or group of machines.
