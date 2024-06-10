@@ -1,0 +1,15 @@
+- name: Reload Docker
+  become: true
+  ansible.builtin.systemd:
+    name: docker
+    state: reloaded
+- name: Run a test hello-world
+  community.docker.docker_container:
+    name: hello-world
+    image: hello-world
+    runtime: runsc
+    state: present
+  register: docker_output
+- name: Show docker output
+  ansible.builtin.debug:
+    var: docker_output

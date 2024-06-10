@@ -1,6 +1,9 @@
 ---
 # tasks file for gvisor_install
-- include_tasks: set_arch.yml
-- include_tasks: get_binaries.yml
-- include_tasks: setup_binaries.yml
-- include_tasks: verify_runsc_install.yml
+- name: Download gVisor binaries
+  ansible.builtin.include_tasks: get_binaries.ansible.yml
+- name: Setup gVisor binaries
+  ansible.builtin.include_tasks: setup_binaries.ansible.yml
+- name: Run install command on gVisor binaries
+  ansible.builtin.include_tasks: reload_verify.ansible.yml
+

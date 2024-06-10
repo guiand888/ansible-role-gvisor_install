@@ -1,0 +1,31 @@
+- name: Set the architecture
+  ansible.builtin.set_fact:
+    arch: "{{ ansible_architecture }}"
+- name: Set URL variable
+  ansible.builtin.set_fact:
+    url: "https://storage.googleapis.com/gvisor/releases/release/latest/{{ arch }}"
+- name: Download required files
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: "/tmp/{{ item.split('/')[-1] }}"
+    mode: '0755'
+  loop:
+    - "{{ url }}/runsc"
+    - "{{ url }}/runsc.sha512"
+    - "{{ url }}/containerd-shim-runsc-v1"
+    - "{{ url }}/containerd-shim-runsc-v1.sha512"
+- name: Validate checksums
+  ansible.builtin.command:
+    cmd: "sha512sum -c {{ item }}"
+    chdir: "/tmp"
+  loop:
+    - runsc.sha512
+    - containerd-shim-runsc-v1.sha512
+- name: Set permissions
+  ansible.builtin.file:
+    path: "/tmp/{{ item }}"
+    state: file
+    mode: '0755'
+  loop:
+    - runsc
+    - containerd-shim-runsc-v1
